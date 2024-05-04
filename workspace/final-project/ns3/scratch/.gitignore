@@ -1,0 +1,12 @@
+# Ignore everything on scratch by default, except the provided examples
+/*
+!.gitignore
+
+!subdir/
+!scratch-simulator.cc
+!CMakeLists.txt
+!dp-simple.cc
+!ring-allreduce.cc
+!datacenter.cc
+!test-simple.cc
+!dp-test.cc
