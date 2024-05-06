@@ -8,19 +8,24 @@ import csv
 
 energy_pattern = r"Energy:"
 cycles_pattern = r"Cycles:"
+area_pattern = r"um\^2"
 clock_speed = 1000000 # clock speed in Hz
 
 def extract_stats(stats_file):
     with open(stats_file, "r") as file:
         lines = file.readlines()
     
+    area = 0
+
     for line in lines:
         if re.search(energy_pattern, line):
             energy = float(line.strip().split()[1])
         if re.search(cycles_pattern, line):
             cycles = float(line.strip().split()[1])
-
-    return energy, cycles
+        if re.search(area_pattern, line):
+            # print(line)
+            area += float(line.strip().split()[-2])
+    return area, energy, cycles
     
 def tensor_size(dimensions, data_width):
     tensor_elements = math.prod(dimensions)
@@ -87,6 +92,7 @@ def extract_dimensions_gpt(yaml_file):
                 instance_part = line.split('instance:', 1)[1].strip()
                 # Remove braces and split by comma
                 entries = instance_part.strip('{}').split(',')
+                # print(entries)
                 for entry in entries:
                     key, value = entry.split(':')
                     key = key.strip()
@@ -111,7 +117,7 @@ if __name__ == "__main__":
     parser.add_argument("--dataspace", type=str, help="Name of the data space to analyze")
     parser.add_argument("--datawidth", type=int, help="Data width of each element in bytes")
     parser.add_argument("--csv_network", type=str, help="Path to the output csv for network simulation")
-    # parser.add_argument("--csv_stats", type=str, help="Path to the output csv for stats (energy, area, etc.)")
+    parser.add_argument("--csv_stats", type=str, help="Path to the output csv for stats (energy, area, etc.)")
 
     args = parser.parse_args()
     
@@ -119,11 +125,13 @@ if __name__ == "__main__":
     
     for shard in list_shards:
         num_shard = shard.split("_")[1]
-
-        with open((str(num_shard) + "_" + args.csv_network), 'w', newline='') as file:
+     
+        with open((str(num_shard) + "_" + args.csv_network), 'w', newline='') as file, open((str(num_shard) + "_" + args.csv_stats), 'w', newline='') as stats_file:
             writer = csv.writer(file)
-            writer.writerow(list(num_shard))
+            stats_writer = csv.writer(stats_file)
 
+            writer.writerow(list(num_shard))
+            print(f"number of shards: {num_shard}")
             layer_dir = os.path.join(args.shard_dir, shard)
             list_layers = os.listdir(layer_dir)
             
@@ -155,18 +163,25 @@ if __name__ == "__main__":
                 # Calculate the maximum latency and extract energy usage from the stats file
                 energy_list = list()
                 latency_list = list()
+                area_list = list()
 
                 for stat_file in stats_files:
-                    energy, cycles = extract_stats(os.path.join(sharded_layer_dir, stat_file))
+                    area, energy, cycles = extract_stats(os.path.join(sharded_layer_dir, stat_file))
                     latency = cycles / float(clock_speed)
+                    area_list.append(area)
                     energy_list.append(energy)
                     latency_list.append(latency)
-
+                    
+                max_area = max(area_list)
                 max_latency = max(latency_list)
+                max_energy = max(energy_list)
                 
                 csv_layer_line = [str(max_latency), str(max_mem_transfer)]
-                print(csv_layer_line)
+                # print(csv_layer_line)
                 writer.writerow(csv_layer_line)
+                csv_stats_line = [str(max_area), str(max_energy)]
+                print(csv_stats_line)
+                stats_writer.writerow(csv_stats_line)
             
     # size = tensor_size(dimensions, args.datawidth)
     # energy = extract_energy(args.stats)
