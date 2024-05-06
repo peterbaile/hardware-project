@@ -90,7 +90,8 @@ def shard(model, arch, dim, num_shards):
 
 def run(model, arch, num_shards):
   num_layers = len(LAYERS[model])
-  
+  scaled_arch = arch + "_shard_" + str(num_shards) 
+
   for l in range(num_layers):
     problem_path = f'outputs/{model}/{arch}/shard_{num_shards}/layer{str(l+1).zfill(3)}'
     save_path = f'./layer_shapes/{problem_path}'
@@ -98,11 +99,12 @@ def run(model, arch, num_shards):
 
     for fn in fns:
       problem = f'{problem_path}/{fn}'
-      cmd = f'python3 run_example_designs.py --architecture {arch} --problem {problem}'
+      cmd = f'python3 run_example_designs.py --architecture {scaled_arch} --problem {problem}'
       print(cmd)
       subprocess.run(cmd, shell=True, capture_output=True, text=True)
       fn_no_yaml = fn.replace('.yaml', '')
-      cmd = f'mv ./example_designs/{arch}/outputs/{fn_no_yaml}/timeloop-mapper.stats.txt {save_path}/{fn_no_yaml}.txt'
+      cmd = f'mv ./example_designs/{scaled_arch}/outputs/{fn_no_yaml}/timeloop-mapper.stats.txt {save_path}/{fn_no_yaml}.txt'
+      print(cmd)
       subprocess.run(cmd, shell=True, capture_output=True, text=True)
 
 def pad_dir_names(model, arch, num_shards):
@@ -124,7 +126,7 @@ if __name__ == '__main__':
       # pad_dir_names(model, arch, num_shards)
 
       # Step 1
-      shard(model, arch, dim, num_shards)
+      # shard(model, arch, dim, num_shards)
 
       # Step 2
-      # run(model, arch, num_shards)
+      run(model, arch, num_shards)
