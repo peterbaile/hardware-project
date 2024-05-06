@@ -73,10 +73,11 @@ uint32_t iterCounts;
 uint32_t iter;
 Time prevLayer;
 void endIteration(Ptr<DataParallel> worker) {
-    iterCounts += 1;
     worker->EndSyncFuncPhase();
-    NS_LOG_INFO(Simulator::Now().GetSeconds() << " IterEnd " << Simulator::Now().GetSeconds() - prevLayer.GetSeconds());
+    //NS_LOG_INFO(Simulator::Now().GetSeconds() << " IterEnd " << Simulator::Now().GetSeconds() - prevLayer.GetSeconds());
+    NS_LOG_INFO(iterCounts << "," << Simulator::Now().GetSeconds() - prevLayer.GetSeconds());
     prevLayer = Simulator::Now();
+    iterCounts += 1;
     /*
     if (iterCounts == neededVotes) {
         NS_LOG_INFO(Simulator::Now().GetSeconds() << " IterEnd " << iter << " \n";
@@ -164,7 +165,7 @@ int main (int argc, char* argv[])
     //NS_LOG_INFO("Creating topology");
     //std::string dataRate = "5Gbps";
     //std::string latency = "10us";
-    std::string dataRate = "100Mbps";
+    std::string dataRate = "1Mbps";
     std::string latency = "10ms";
     std::string bufferSize = "1MB";
     std::string bottleBufferSize = "1MB";
@@ -252,6 +253,7 @@ int main (int argc, char* argv[])
     Ipv4GlobalRoutingHelper::PopulateRoutingTables();
     
 	//NS_LOG_INFO("Run Simulation");
+    NS_LOG_INFO("Layer #,Time");
 	Simulator::Run();
 	Simulator::Destroy();
 	//NS_LOG_INFO("Finished simulation");
