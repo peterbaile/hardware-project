@@ -1,5 +1,12 @@
-Todos:
-1. There are massive C++ rule of 3 violations everywhere. and actually as it turns out it violates the rule of 5 so maybe fix that too
+For this project, the most important files are scratch/tp-layer.cc and src/applications/model/data-parallel.cc
+
+TP-layer is the implementation of the combined compute and network simulator. It takes in a csv of the compute times for each layer along with the output activation's size, and then simulates the all-reduce. We assume a network topology with a single big switch, and we use the efficient ring-allreduce implementation. 
+
+Data parallel is the implementation of a worker in a distributed inference job. Despite its name, it turns out to be a reasonably suitable model for various kinds of parallelism, including tensor parallelism. The way it works is that it takes in a schedule composed of compute, communicate, and synchronization phases that it then goes through over a certain number of iterations. 
+
+This codebase is currently being used in active research. Please do not distribute.
+
+Below is the readme for ns3 as given.
 
 # The Network Simulator, Version 3
 
