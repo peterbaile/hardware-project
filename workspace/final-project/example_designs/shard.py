@@ -9,12 +9,12 @@ THIS_SCRIPT_DIR = os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
 EXAMPLE_DIR = os.path.join(THIS_SCRIPT_DIR, 'layer_shapes')
 
 BASE_DIRS = {
-  'conv': f'{EXAMPLE_DIR}/CONV/AlexNet',
+  'alexnet': f'{EXAMPLE_DIR}/CONV/AlexNet',
   'gpt': f'{EXAMPLE_DIR}/gpt2'
 }
 
 LAYERS = {
-  'conv': [f'AlexNet_layer{i}' for i in range(1, 6)],
+  'alexnet': [f'AlexNet_layer{i}' for i in range(1, 6)],
   'gpt': [str(i).zfill(3) for i in range(0, 145)]
 }
 
@@ -24,7 +24,7 @@ NUM_SHARDS = [1, 2, 4, 8]
 def parse_yaml(model, fn):
   base_dir = BASE_DIRS[model]
 
-  if model == 'conv':
+  if model == 'alexnet':
     with open(f'{base_dir}/{fn}.yaml') as f:
       instance = yaml.safe_load(f)
   else:
