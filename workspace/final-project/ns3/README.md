@@ -4,8 +4,6 @@ TP-layer is the implementation of the combined compute and network simulator. It
 
 Data parallel is the implementation of a worker in a distributed inference job. Despite its name, it turns out to be a reasonably suitable model for various kinds of parallelism, including tensor parallelism. The way it works is that it takes in a schedule composed of compute, communicate, and synchronization phases that it then goes through over a certain number of iterations. 
 
-This codebase is currently being used in active research. Please do not distribute.
-
 Below is the readme for ns3 as given.
 
 # The Network Simulator, Version 3
