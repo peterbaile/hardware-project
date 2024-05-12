@@ -54,7 +54,7 @@ def shard(model, arch, dim, num_shards):
     save_path = f'./layer_shapes/outputs/{model}/{arch}/shard_{num_shards}/layer{str(l_idx+1).zfill(3)}'
     os.makedirs(save_path)
 
-    if model == 'conv':
+    if model == 'alexnet':
       sz = instance['problem']['instance'][dim]
     else:
       sz = instance[dim]
@@ -74,7 +74,7 @@ def shard(model, arch, dim, num_shards):
     for g_idx, x in enumerate(sz_list):
       instance_copy = deepcopy(instance)
 
-      if model == 'conv':
+      if model == 'alexnet':
         instance_copy['problem']['instance'][dim] = x
       else:
         instance_copy[dim] = x
@@ -82,7 +82,7 @@ def shard(model, arch, dim, num_shards):
         instance_copy = ["{{include_text('../../../../../problem_base.yaml')}}\n", "problem:\n", "  <<<: *problem_base\n", f"  instance: {instance_copy}"]
 
       with open(f'{save_path}/{g_idx+1}.yaml', 'w') as f:
-        if model == 'conv':
+        if model == 'alexnet':
           yaml.safe_dump(instance_copy, f)
         else:
           f.writelines(instance_copy)
@@ -118,15 +118,16 @@ def pad_dir_names(model, arch, num_shards):
     subprocess.run(cmd, shell=True, capture_output=True, text=True)
 
 if __name__ == '__main__':
-  # model, dim = 'conv', 'C'
-  model, dim = 'gpt', 'M'
+  # model, dim = 'alexnet', 'C'
+  # model, dim = 'gpt', 'M'
 
   for num_shards in NUM_SHARDS:
-    for arch in ['simba_like']:
-      # pad_dir_names(model, arch, num_shards)
+    for arch in ['simba_like', 'eyeriss_like']:
+      for (model, dim) in [('alexnet', 'C'), ('gpt', 'M')]:
+        # pad_dir_names(model, arch, num_shards)
 
-      # Step 1
-      # shard(model, arch, dim, num_shards)
+        # Step 1
+        shard(model, arch, dim, num_shards)
 
-      # Step 2
-      run(model, arch, num_shards)
+        # Step 2
+        run(model, arch, num_shards)
