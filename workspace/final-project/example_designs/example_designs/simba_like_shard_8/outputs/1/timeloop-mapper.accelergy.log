@@ -1,0 +1,139 @@
+2024-05-13 05:25:44 INFO            _                _                      
+2024-05-13 05:25:44 INFO           / \   ___ ___ ___| | ___ _ __ __ _ _   _ 
+2024-05-13 05:25:44 INFO          / _ \ / __/ __/ _ \ |/ _ \ '__/ _` | | | |
+2024-05-13 05:25:44 INFO         / ___ \ (_| (_|  __/ |  __/ | | (_| | |_| |
+2024-05-13 05:25:44 INFO        /_/   \_\___\___\___|_|\___|_|  \__, |\__, |
+2024-05-13 05:25:44 INFO                                        |___/ |___/ 
+2024-05-13 05:25:44 INFO        generating outputs according to the following specified output flags... 
+2024-05-13 05:25:44 INFO         Please use the -f flag to update the preference (default to all output files)
+2024-05-13 05:25:44 INFO        {'ERT': 1, 'ERT_summary': 1, 'ART': 1, 'ART_summary': 1, 'energy_estimation': 1, 'flattened_arch': 1}
+2024-05-13 05:25:44 INFO        Accelergy creating default config at:
+2024-05-13 05:25:44 INFO        /home/workspace/.config/accelergy/accelergy_config.yaml
+2024-05-13 05:25:44 INFO        with:
+2024-05-13 05:25:44 INFO        {'version': '0.4', 'estimator_plug_ins': ['/usr/local/share/accelergy/estimation_plug_ins'], 'primitive_components': ['/usr/local/share/accelergy/primitive_component_libs'], 'compound_components': [], 'math_functions': [], 'python_plug_ins': [], 'table_plug_ins': {'roots': ['/usr/local/share/accelergy/table_plug_ins']}}
+
+
+
+
+
+============================================================
+Accelergy has encountered an error and crashed. Error below: 
+============================================================
+|| Traceback (most recent call last):
+||   File "/usr/local/lib/python3.8/dist-packages/accelergy/raw_inputs_2_dicts.py", line 408, in construct_parse_config_file
+||     original_config_file_path = get_config_file_path()
+||   File "/usr/local/lib/python3.8/dist-packages/accelergy/utils/utils.py", line 109, in get_config_file_path
+||     raise FileNotFoundError(
+|| FileNotFoundError: Could not find Accelergy config file. Run 'accelergy' to generate a default config file at /home/workspace/.config/accelergy/.
+|| 
+|| During handling of the above exception, another exception occurred:
+|| 
+|| Traceback (most recent call last):
+||   File "/usr/local/lib/python3.8/dist-packages/accelergy/accelergy_console.py", line 237, in main
+||     run()
+||   File "/usr/local/lib/python3.8/dist-packages/accelergy/accelergy_console.py", line 93, in run
+||     raw_dicts = RawInputs2Dicts(raw_input_info, args.update_config_version)
+||   File "/usr/local/lib/python3.8/dist-packages/accelergy/raw_inputs_2_dicts.py", line 29, in __init__
+||     self.load_and_construct_dicts(update_config_version)
+||   File "/usr/local/lib/python3.8/dist-packages/accelergy/raw_inputs_2_dicts.py", line 34, in load_and_construct_dicts
+||     self.construct_parse_config_file(update_config_version)
+||   File "/usr/local/lib/python3.8/dist-packages/accelergy/raw_inputs_2_dicts.py", line 465, in construct_parse_config_file
+||     write_yaml_file(config_file_path, config_file_content)
+||   File "/usr/local/lib/python3.8/dist-packages/accelergy/utils/yaml.py", line 469, in write_yaml_file
+||     out_file = open(filepath, "a")
+|| PermissionError: [Errno 13] Permission denied: '/home/workspace/.config/accelergy/accelergy_config.yaml'
+============================================================
+Stack with local variables (most recent call last):
+============================================================
+Frame 3
+============================================================
+| /usr/local/lib/python3.8/dist-packages/accelergy/raw_inputs_2_dicts.py:29
+| PermissionError: [Errno 13] Permission denied: '/home/workspace/.config/accelergy/accelergy_config.yaml'
+| Local var self =                         <accelergy.raw_inputs_2_dicts.RawInputs2Dicts object at 0x7f67740463d0>
+| Local var update_config_version =        False
+|          25:        self.ERT_dict = {}
+|          26:        self.action_counts_dict = {}
+|          27:        self.config = None
+|          28:        self.arch_variables = {}
+| ERROR >> 29:        self.load_and_construct_dicts(update_config_version)
+|          30: 
+|          31:    def load_and_construct_dicts(self, update_config_version):
+|          32:        # load and classify input files
+|          33:        # construct new or parse existing config file
+============================================================
+Frame 2
+============================================================
+| /usr/local/lib/python3.8/dist-packages/accelergy/raw_inputs_2_dicts.py:34
+| PermissionError: [Errno 13] Permission denied: '/home/workspace/.config/accelergy/accelergy_config.yaml'
+| Local var self =                         <accelergy.raw_inputs_2_dicts.RawInputs2Dicts object at 0x7f67740463d0>
+| Local var update_config_version =        False
+|          30: 
+|          31:    def load_and_construct_dicts(self, update_config_version):
+|          32:        # load and classify input files
+|          33:        # construct new or parse existing config file
+| ERROR >> 34:        self.construct_parse_config_file(update_config_version)
+|          35: 
+|          36:        # merge all paths (input + compound compondnt lib)
+|          37:        all_paths = self.path_arglist
+|          38:        if "compound_components" in self.config:
+============================================================
+Frame 1
+============================================================
+| /usr/local/lib/python3.8/dist-packages/accelergy/raw_inputs_2_dicts.py:465
+| PermissionError: [Errno 13] Permission denied: '/home/workspace/.config/accelergy/accelergy_config.yaml'
+| Local var self =                         <accelergy.raw_inputs_2_dicts.RawInputs2Dicts object at 0x7f67740463d0>
+| Local var config_file_path =             /home/workspace/.config/accelergy/accelergy_config.yaml
+| Local var config_file_content =          {'version': '0.4', 'estimator_plug_ins': ['/usr/local/share/accelergy/estimation_plug_ins'], 'primitive_components': ['/usr/local/share/accelergy/primitive_component_libs'], 'compound_components': [], 'math_functions': [], 'python_plug_ins': [], 'table_plug_ins': {'roots': ['/usr/local/share/accelergy/table_plug_ins']}}
+|          461:                "with:\n",
+|          462:                config_file_content,
+|          463:            )
+|          464:            create_folder(os.path.dirname(config_file_path))
+| ERROR >> 465:            write_yaml_file(config_file_path, config_file_content)
+|          466:            self.config = config_file_content
+|          467: 
+|          468:    def primitive_classes_input_parser(self):
+|          469:        """construct a dictionary for primitive classes"""
+============================================================
+Frame 0
+============================================================
+| /usr/local/lib/python3.8/dist-packages/accelergy/utils/yaml.py:469
+| PermissionError: [Errno 13] Permission denied: '/home/workspace/.config/accelergy/accelergy_config.yaml'
+| Local var filepath =                     /home/workspace/.config/accelergy/accelergy_config.yaml
+| Local var content =                      {'version': '0.4', 'estimator_plug_ins': ['/usr/local/share/accelergy/estimation_plug_ins'], 'primitive_components': ['/usr/local/share/accelergy/primitive_component_libs'], 'compound_components': [], 'math_functions': [], 'python_plug_ins': [], 'table_plug_ins': {'roots': ['/usr/local/share/accelergy/table_plug_ins']}}
+|          465:     if os.path.exists(filepath):
+|          466:         os.remove(filepath)
+|          467:     if os.path.dirname(filepath):
+|          468:         utils.create_folder(os.path.dirname(filepath))
+| ERROR >> 469:     out_file = open(filepath, "a")
+|          470:     out_file.write(to_yaml_string(content))
+|          471: 
+|          472: 
+|          473: def to_yaml_string(content: Dict[str, Any]) -> str:
+============================================================
+|| Traceback (most recent call last):
+||   File "/usr/local/lib/python3.8/dist-packages/accelergy/raw_inputs_2_dicts.py", line 408, in construct_parse_config_file
+||     original_config_file_path = get_config_file_path()
+||   File "/usr/local/lib/python3.8/dist-packages/accelergy/utils/utils.py", line 109, in get_config_file_path
+||     raise FileNotFoundError(
+|| FileNotFoundError: Could not find Accelergy config file. Run 'accelergy' to generate a default config file at /home/workspace/.config/accelergy/.
+|| 
+|| During handling of the above exception, another exception occurred:
+|| 
+|| Traceback (most recent call last):
+||   File "/usr/local/lib/python3.8/dist-packages/accelergy/accelergy_console.py", line 237, in main
+||     run()
+||   File "/usr/local/lib/python3.8/dist-packages/accelergy/accelergy_console.py", line 93, in run
+||     raw_dicts = RawInputs2Dicts(raw_input_info, args.update_config_version)
+||   File "/usr/local/lib/python3.8/dist-packages/accelergy/raw_inputs_2_dicts.py", line 29, in __init__
+||     self.load_and_construct_dicts(update_config_version)
+||   File "/usr/local/lib/python3.8/dist-packages/accelergy/raw_inputs_2_dicts.py", line 34, in load_and_construct_dicts
+||     self.construct_parse_config_file(update_config_version)
+||   File "/usr/local/lib/python3.8/dist-packages/accelergy/raw_inputs_2_dicts.py", line 465, in construct_parse_config_file
+||     write_yaml_file(config_file_path, config_file_content)
+||   File "/usr/local/lib/python3.8/dist-packages/accelergy/utils/yaml.py", line 469, in write_yaml_file
+||     out_file = open(filepath, "a")
+|| PermissionError: [Errno 13] Permission denied: '/home/workspace/.config/accelergy/accelergy_config.yaml'
+============================================================
+Accelergy has encountered an error and crashed. Error above. 
+============================================================
+

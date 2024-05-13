@@ -52,7 +52,8 @@ def shard(model, arch, dim, num_shards):
     instance = parse_yaml(model, fn)
 
     save_path = f'./layer_shapes/outputs/{model}/{arch}/shard_{num_shards}/layer{str(l_idx+1).zfill(3)}'
-    os.makedirs(save_path)
+    if not os.path.exists(save_path):
+      os.makedirs(save_path)
 
     if model == 'alexnet':
       sz = instance['problem']['instance'][dim]
