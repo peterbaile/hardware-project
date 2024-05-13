@@ -4,7 +4,13 @@ Authors: Peter Baile Chen, Charlie Liu, Anton Zabreyko
 The repository is released under MIT License.
 
 # Run the Project
-Simply do "./run.sh", this should run the project with the current settings. This will generate a list of CSVs under "csv" directory that contain the result of the simulation. 
+To run the compute simulator, simply do "./run.sh", this should run the project with the current settings. This will generate a list of CSVs under "csv" directory that contain the result of the simulation. 
+
+To run the network simulator, please first build ns3 under the "ns3" directory. Detailed instructions can be found at https://www.nsnam.org/docs/tutorial/html/getting-started.html#build-profiles, but assuming all pre-requisites are already installed, simply run:
+./ns3 configure --build-profile=optimized --enable-examples --enable-tests
+./ns3 build
+
+After building ns3, run the network simulation with "./run_network.sh". Again, it will create CSVs under "csv" that contains the runtime results. The specific subdirectory is "runtime".
 
 A separate plotting script "example_designs/plots.py" is provided to plot the CSVs generated from the simulation. You can use it to generate the plots, but also feel free to come up with your own script to generate the plots of your own interest.
 
