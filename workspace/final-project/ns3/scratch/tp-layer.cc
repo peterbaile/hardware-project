@@ -62,7 +62,7 @@ void CheckSync(Ptr<DataParallel> worker) {
     counter += 1;
     //NS_LOG_INFO(counter << " " << neededVotes << " this is the counter");
     if (counter == neededVotes) {
-        for (int i = 0; i < neededVotes; i++) {
+        for (uint32_t i = 0; i < neededVotes; i++) {
             w.at(i)->EndSyncFuncPhase();
         }
         counter = 0;
@@ -162,11 +162,8 @@ int main (int argc, char* argv[])
 	InternetStackHelper internet;
 	internet.Install(allNodes);
 
-    //NS_LOG_INFO("Creating topology");
-    //std::string dataRate = "5Gbps";
-    //std::string latency = "10us";
-    std::string dataRate = "1Mbps";
-    std::string latency = "10ms";
+    std::string dataRate = argv[2]; //"1Mbps";
+    std::string latency = argv[3]; //"10ms";
     std::string bufferSize = "1MB";
     std::string bottleBufferSize = "1MB";
 
@@ -179,7 +176,7 @@ int main (int argc, char* argv[])
     std::set<Ipv4Address> addresses;
 	uint16_t port = 9;
 
-    for (int i = 0; i < numWorkers; i++) {
+    for (uint32_t i = 0; i < numWorkers; i++) {
         NodeContainer nc;
         nc.Add(allNodes.Get(i));
         nc.Add(allNodes.Get(numWorkers));

@@ -62,7 +62,7 @@ void CheckSync(Ptr<DataParallel> worker) {
     counter += 1;
     //NS_LOG_INFO(counter << " " << neededVotes << " this is the counter");
     if (counter == neededVotes) {
-        for (int i = 0; i < neededVotes; i++) {
+        for (uint32_t i = 0; i < neededVotes; i++) {
             w.at(i)->EndSyncFuncPhase();
         }
         counter = 0;
@@ -179,7 +179,7 @@ int main (int argc, char* argv[])
     std::set<Ipv4Address> addresses;
 	uint16_t port = 9;
 
-    for (int i = 0; i < numWorkers; i++) {
+    for (uint32_t i = 0; i < numWorkers; i++) {
         NodeContainer nc;
         nc.Add(allNodes.Get(i));
         nc.Add(allNodes.Get(numWorkers));
