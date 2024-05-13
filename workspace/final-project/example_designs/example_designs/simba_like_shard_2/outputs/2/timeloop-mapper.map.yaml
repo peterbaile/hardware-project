@@ -1,0 +1,114 @@
+mapping:
+  - target: PEWeightRegs
+    type: datatype
+    keep:
+      - Weights
+    bypass:
+      - Inputs
+      - Outputs
+  - target: inter_reg_mac_spatial
+    type: datatype
+    keep:
+      []
+    bypass:
+      - Weights
+      - Inputs
+      - Outputs
+  - target: PEAccuBuffer
+    type: datatype
+    keep:
+      - Outputs
+    bypass:
+      - Weights
+      - Inputs
+  - target: PEWeightBuffer
+    type: datatype
+    keep:
+      - Weights
+    bypass:
+      - Inputs
+      - Outputs
+  - target: inter_distributed_buffers_spatial
+    type: datatype
+    keep:
+      []
+    bypass:
+      - Weights
+      - Inputs
+      - Outputs
+  - target: PEInputBuffer
+    type: datatype
+    keep:
+      - Inputs
+    bypass:
+      - Weights
+      - Outputs
+  - target: inter_PE_spatial
+    type: datatype
+    keep:
+      []
+    bypass:
+      - Weights
+      - Inputs
+      - Outputs
+  - target: GlobalBuffer
+    type: datatype
+    keep:
+      - Inputs
+      - Outputs
+    bypass:
+      - Weights
+  - target: DRAM
+    type: datatype
+    keep:
+      - Weights
+      - Inputs
+      - Outputs
+    bypass:
+      []
+  - target: PEWeightRegs
+    type: temporal
+    factors: C1 M1 R1 S1 N1 P4 Q1 G1
+    permutation: PCMRSNQG
+  - target: inter_reg_mac_spatial
+    type: spatial
+    factors: C4 M1 R1 S1 N1 P1 Q1 G1
+    permutation: CMRSNPQG
+    split: 0
+  - target: inter_reg_mac_spatial
+    type: temporal
+    factors: C1 M1 R1 S1 N1 P1 Q1 G1
+    permutation: CMRSNPQG
+  - target: PEAccuBuffer
+    type: temporal
+    factors: C4 M1 R1 S1 N1 P1 Q1 G1
+    permutation: CMRSNPQG
+  - target: PEWeightBuffer
+    type: temporal
+    factors: C4 M1 R1 S1 N1 P1 Q1 G1
+    permutation: CMRSNPQG
+  - target: inter_distributed_buffers_spatial
+    type: temporal
+    factors: C1 M1 R1 S1 N1 P1 Q1 G1
+    permutation: CMRSNPQG
+  - target: PEInputBuffer
+    type: temporal
+    factors: C4 M1 R1 S1 N1 P2 Q1 G1
+    permutation: PCMRSNQG
+  - target: inter_PE_spatial
+    type: spatial
+    factors: C1 M13 R1 S1 N1 P1 Q1 G1
+    permutation: MCRSNPQG
+    split: 1
+  - target: inter_PE_spatial
+    type: temporal
+    factors: C1 M1 R1 S1 N1 P1 Q1 G1
+    permutation: CMRSNPQG
+  - target: GlobalBuffer
+    type: temporal
+    factors: C2 M1 R1 S1 N1 P1 Q1 G1
+    permutation: CMRSNPQG
+  - target: DRAM
+    type: temporal
+    factors: C2 M1933 R1 S1 N1 P32 Q1 G1
+    permutation: MCPRSNQG

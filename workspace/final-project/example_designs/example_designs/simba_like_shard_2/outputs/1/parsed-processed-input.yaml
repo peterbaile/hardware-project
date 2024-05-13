@@ -29,9 +29,9 @@ architecture:
                 technology: "45nm"
                 power_gated_at: null
             required_actions:
-              - read
               - leak
               - update
+              - read
               - write
             enabled: true
           - name: GlobalBuffer[1..1]
@@ -53,9 +53,9 @@ architecture:
                 technology: "45nm"
                 power_gated_at: null
             required_actions:
-              - read
               - leak
               - update
+              - read
               - write
             enabled: true
           - name: inter_PE_spatial[1..1]
@@ -95,9 +95,9 @@ architecture:
                 technology: "45nm"
                 power_gated_at: null
             required_actions:
-              - read
               - leak
               - update
+              - read
               - write
             enabled: true
           - name: inter_distributed_buffers_spatial[1..16]
@@ -137,9 +137,9 @@ architecture:
                 technology: "45nm"
                 power_gated_at: null
             required_actions:
-              - read
               - leak
               - update
+              - read
               - write
             enabled: true
           - name: PEAccuBuffer[1..64]
@@ -161,9 +161,9 @@ architecture:
                 technology: "45nm"
                 power_gated_at: null
             required_actions:
-              - read
               - leak
               - update
+              - read
               - write
             enabled: true
           - name: inter_reg_mac_spatial[1..64]
@@ -204,9 +204,9 @@ architecture:
                 technology: "45nm"
                 power_gated_at: null
             required_actions:
-              - read
               - leak
               - update
+              - read
               - write
             enabled: true
           - name: mac[1..256]
