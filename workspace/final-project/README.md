@@ -1,5 +1,5 @@
 # Tensor Parallel Sharding for Distributed Inference on the Edge
-Author: Peter Baile Chen, Charlie Liu, Anton Zabreyko
+Authors: Peter Baile Chen, Charlie Liu, Anton Zabreyko
 
 The repository is released under MIT License.
 
