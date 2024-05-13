@@ -4,7 +4,9 @@ Authors: Peter Baile Chen, Charlie Liu, Anton Zabreyko
 The repository is released under MIT License.
 
 # Run the Project
-Simply do "./run.sh", this should run the project with the current settings. 
+Simply do "./run.sh", this should run the project with the current settings. This will generate a list of CSVs under "csv" directory that contain the result of the simulation. 
+
+A separate plotting script "example_designs/plots.py" is provided to plot the CSVs generated from the simulation. You can use it to generate the plots, but also feel free to come up with your own script to generate the plots of your own interest.
 
 To see more usage of the data extraction script, please run "python3 ./scripts/extract_data.py --help"
 
